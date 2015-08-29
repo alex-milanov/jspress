@@ -1,0 +1,16 @@
+{
+  "name": "jspress",
+  "version": "0.1.0",
+  "authors": [
+    "Alex Milanov <alex@i4web.biz>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/lib",
+    "test",
+    "tests"
+  ]
+}
