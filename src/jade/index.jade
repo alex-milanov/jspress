@@ -4,12 +4,27 @@ html
 		link(rel="stylesheet",href="lib/font-awesome.css")
 		link(rel="stylesheet",href="css/style.css")
 	body
-		h1 JSPress - Retiring Wordpress ;-)
-		button#convert-markdown-html Convert Markdown to HTML
-		button#convert-html-markdown Convert HTML to Markdown
-		.layout
-			textarea#markdown-editor
-			div#html-editor
+		header
+			h1 JSPress - Retiring Wordpress ;-)
+			button.btn#convert-markdown-html Convert Markdown to HTML
+			button.btn#convert-html-markdown Convert HTML to Markdown
+		.editor-layout
+			textarea#markdown-editor.
+				# Some Markdown Here
+
+				## Some List
+				- Item 1
+				- Item 2
+
+				Now this is a link: http://www.google.com
+
+				```js
+					function codeblock(){
+
+					}
+				```
+
+			div#html-editor 
 
 		//- libs
 		script(src="lib/jquery.js")

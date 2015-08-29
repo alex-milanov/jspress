@@ -4,3 +4,56 @@
 @import "inc/vars.scss";
 @import "inc/common.scss";
 
+
+
+header {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	right: 0px;
+	height: 80px;
+	h1 {
+		margin: 0px 0px;
+		padding: 0px;
+	}
+	button {
+		border: 2px solid #777;
+		border-radius: 5px;
+		background: #ccc;
+		height: 28px;
+		line-height: 28px;
+		padding: 0px 10px;
+		font-size: 18px;
+		text-align: middle;
+		display: inline-block;
+		cursor: pointer;
+		&:hover {
+			background: #aaa;
+		}
+		margin: 10px 0px;
+	}
+}
+
+.editor-layout {
+	position: absolute;
+	top: 100px;
+	left: 20px;
+	right: 0px;
+	bottom: 0px;
+	> * {
+		height: 100%;
+		width: 50%;
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		box-sizing: border-box;
+		border: 2px solid #777;
+		border-radius: 5px;
+	}
+	#markdown-editor {
+		left: 0px;
+	}
+	#html-editor {
+		right: 0px;
+	}
+}

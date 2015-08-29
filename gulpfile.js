@@ -41,7 +41,7 @@ gulp.task('sass', function(done) {
 		}))
 		.pipe(rename({ extname: '.min.css' }))
 		.pipe(gulp.dest('./dist/css/'))
-//		.pipe( livereload())
+		.pipe( livereload())
 		.on('end',done);
 });
 
@@ -55,7 +55,7 @@ gulp.task('jade', function(done) {
 			pretty: true
 		}))
 		.pipe(gulp.dest('./dist/'))
-//		.pipe( livereload())
+		.pipe( livereload())
 		.on('end',done);
 });
 
@@ -73,7 +73,7 @@ gulp.task("bower-files", function(done){
 			// .pipe(filterForWww.restore())
 			// .pipe(filterForMobile)
 			// .pipe(gulp.dest("./mobile/www/lib"))
-//			.pipe( livereload())
+			.pipe( livereload())
 			.on('end',done);
 	});
 });
@@ -85,7 +85,7 @@ gulp.task('js', function(done) {
 //		.pipe(jshint())
 //		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe( gulp.dest('./dist/js/'))
-//		.pipe( livereload())
+		.pipe( livereload())
 		.on('end',done);
 });
 
