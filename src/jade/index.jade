@@ -9,26 +9,14 @@ html
 			button.btn#convert-markdown-html Convert Markdown to HTML
 			button.btn#convert-html-markdown Convert HTML to Markdown
 		.editor-layout
-			textarea#markdown-editor.
-				# Some Markdown Here
+			textarea#markdown-editor
 
-				## Some List
-				- Item 1
-				- Item 2
-
-				Now this is a link: http://www.google.com
-
-				```js
-					function codeblock(){
-
-					}
-				```
-
-			div#html-editor 
+			div#html-editor
 
 		//- libs
 		script(src="lib/jquery.js")
 		script(src="lib/lodash.js")
+		script(src="lib/marked.js")
 		//- app
 		script(src="js/init.js")
 	
