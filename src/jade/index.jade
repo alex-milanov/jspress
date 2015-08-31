@@ -2,6 +2,8 @@ html
 	head
 		title JSPress - Retiring Wordpress ;-)
 		link(rel="stylesheet",href="lib/font-awesome.css")
+		link(rel="stylesheet",href="lib/skin.min.css")
+		link(rel="stylesheet",href="lib/content.min.css")
 		link(rel="stylesheet",href="css/style.css")
 	body
 		header
@@ -10,13 +12,14 @@ html
 			button.btn#convert-html-markdown Convert HTML to Markdown
 		.editor-layout
 			textarea#markdown-editor
-
-			div#html-editor
+			textarea#html-editor
 
 		//- libs
 		script(src="lib/jquery.js")
 		script(src="lib/lodash.js")
 		script(src="lib/marked.js")
+		script(src="lib/to-markdown.js")
+		script(src="lib/tinymce.min.js")
 		//- app
 		script(src="js/init.js")
 	

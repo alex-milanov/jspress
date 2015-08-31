@@ -17,11 +17,10 @@ header {
 		padding: 0px;
 	}
 	button {
-		border: 2px solid #777;
-		border-radius: 5px;
+		border: 1px solid #777;
 		background: #ccc;
-		height: 28px;
-		line-height: 28px;
+		height: 35px;
+		line-height: 35px;
 		padding: 0px 10px;
 		font-size: 18px;
 		text-align: middle;
@@ -30,7 +29,16 @@ header {
 		&:hover {
 			background: #aaa;
 		}
-		margin: 10px 0px;
+		margin: 0px 0px;
+		width: 50%;
+		position: absolute;
+		bottom: 0px;
+		&#convert-markdown-html {
+			left: 0px;
+		}
+		&#convert-html-markdown {
+			right: 0px;
+		}
 	}
 }
 
@@ -47,13 +55,13 @@ header {
 		top: 0px;
 		bottom: 0px;
 		box-sizing: border-box;
-		border: 2px solid #777;
-		border-radius: 5px;
+		border: 1px solid #777;
+		display: block;
 	}
 	#markdown-editor {
 		left: 0px;
 	}
-	#html-editor {
+	#html-editor, .mce-tinymce {
 		right: 0px;
 	}
 }

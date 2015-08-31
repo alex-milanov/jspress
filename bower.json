@@ -17,6 +17,8 @@
     "font-awesome": "~4.4.0",
     "jquery": "~2.1.4",
     "lodash": "~3.10.1",
-    "marked": "~0.3.5"
+    "marked": "~0.3.5",
+    "tinymce": "~4.2.5",
+    "to-markdown": "~1.2.1"
   }
 }
