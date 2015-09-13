@@ -20,5 +20,22 @@
     "marked": "~0.3.5",
     "tinymce": "~4.2.5",
     "to-markdown": "~1.2.1"
+  },
+  "overrides": {
+    "tinymce": {
+      "main": [ 
+        "*.js",
+        "plugins/**/*.*",
+        "themes/**/*.*",
+        "skins/**/*.*"
+
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/**/*.css",
+        "fonts/**/*"
+      ]
+    }
   }
 }

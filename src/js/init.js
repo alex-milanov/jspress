@@ -15,7 +15,7 @@ $(document).ready(function(){
 
 	tinymce.init({
 		selector: "#html-editor",
-        theme_url: '/lib/theme.min.js',
+        theme_url: '/lib/tinymce/themes/modern/theme.min.js',
 		setup : function(ed) {
 			ed.on('keyup',html2md);
 		}

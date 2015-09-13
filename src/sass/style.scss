@@ -61,7 +61,9 @@ header {
 	#markdown-editor {
 		left: 0px;
 	}
-	#html-editor, .mce-tinymce {
+	#html-editor, .mce-tinymce.mce-container {
 		right: 0px;
+		width: 50%;
+		position: absolute;
 	}
 }

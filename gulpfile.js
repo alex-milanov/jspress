@@ -25,12 +25,6 @@ var paths = {
 	js: ['./src/js/**/*.js']
 };
 
-// additional, not recognized bower files
-bowerFiles.push("./src/lib/threex.keyboardstate/threex.keyboardstate.js");
-bowerFiles.push("./src/lib/tinymce/themes/modern/theme.min.js");
-bowerFiles.push("./src/lib/tinymce/skins/lightgray/skin.min.css");
-bowerFiles.push("./src/lib/tinymce/skins/lightgray/content.min.css");
-
 gulp.task('sass', function(done) {
 	// www
 	gulp.src('./src/sass/style.scss')
@@ -69,7 +63,7 @@ gulp.task("bower-files", function(done){
 	del([
 		'./dist/lib/**/*'
 	], function(){
-		gulp.src(bowerFiles)
+		gulp.src(bowerFiles, { base: './src/lib' })
 			// .pipe(filterForWww)
 			.pipe(gulp.dest("./dist/lib"))
 			// .pipe(filterForWww.restore())
