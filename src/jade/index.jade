@@ -6,11 +6,11 @@ html
 	body
 		header
 			h1 JSPress - Retiring Wordpress ;-)
-			button.btn#convert-markdown-html Convert Markdown to HTML
-			button.btn#convert-html-markdown Convert HTML to Markdown
+			button#toggle-wysiwyg.active(rel="#wysiwyg-editor") WYSIWYG
+			button#toggle-markdown(rel="#markdown-editor") Markdown
 		.editor-layout
+			div#wysiwyg-editor.active(contenteditable="true")
 			textarea#markdown-editor
-			textarea#html-editor
 
 		//- libs
 		script(src="lib/jquery/dist/jquery.js")
@@ -19,5 +19,6 @@ html
 		script(src="lib/to-markdown/dist/to-markdown.js")
 		script(src="lib/tinymce/tinymce.min.js")
 		//- app
+		script(src="js/selections.js")
 		script(src="js/init.js")
 	

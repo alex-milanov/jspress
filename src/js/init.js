@@ -1,31 +1,83 @@
 "use strict";
 
+
+var toMarkdownOptions = {
+	converters: [
+		{
+		    filter: 'li',
+			replacement: function (content, node) {
+				content = content.replace(/^\s+/, '').replace(/\n/gm, '\n ');
+				var prefix = '- ';
+				var parent = node.parentNode;
+				var index = Array.prototype.indexOf.call(parent.children, node) + 1;
+
+				prefix = /ol/i.test(parent.nodeName) ? index + '. ' : '- ';
+				return prefix + content;
+			}
+		},
+		{
+			filter: 'div',
+			replacement: function (content, node) {
+				return "\n\n"+content;
+			}
+		}
+	]
+}
+
+var typingTimer = false;                //timer identifier
+var doneTypingInterval = 500;  //time in ms, 5 second for example
+
+function doneTyping (el) {
+	var sel = saveSelection(el[0]);
+	
+	var html = el.html();
+	var md = toMarkdown(html, toMarkdownOptions);
+
+	$("#markdown-editor").val(md);
+	
+	el.html(marked(md))
+	
+	restoreSelection(el[0],sel);
+}
+
+
 $(document).ready(function(){
 
 	function md2html(){
 		var md = $("#markdown-editor").val();
-		tinymce.activeEditor.setContent(marked(md));
+		$("#wysiwyg-editor").html(marked(md));
 	}
 
 	function html2md(){
-		var html = tinymce.activeEditor.getContent();
-		var md = toMarkdown(html);
+		var html = $("#wysiwyg-editor").html();
+		var md = toMarkdown(html, toMarkdownOptions);
+		console.log(md);
 		$("#markdown-editor").val(md);
 	}
 
-	tinymce.init({
-		selector: "#html-editor",
-        theme_url: '/lib/tinymce/themes/modern/theme.min.js',
-		setup : function(ed) {
-			ed.on('keyup',html2md);
-		}
-	});
-
-	$("#convert-markdown-html").click(md2html);
 	$("#markdown-editor").on("keyup",md2html);
 
+	$("#wysiwyg-editor").keyup(function () {
+		var that = this;
+		if(typingTimer)
+			clearTimeout(typingTimer);
+		typingTimer = setTimeout(function(){
+			doneTyping($(that));
+		}, doneTypingInterval);
+	})
 
-	$("#convert-html-markdown").click(html2md);
+	$("#wysiwyg-editor").keydown(function(){
+		clearTimeout(typingTimer);
+	});
+
+
+	$("header > button").click(function(){
+		$(this).parent().find("button").removeClass("active");
+		$(this).addClass("active");
+		$(".editor-layout > *").removeClass("active");
+		$($(this).attr("rel")).addClass("active");
+	});
+
 
 
 
