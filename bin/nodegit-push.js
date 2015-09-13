@@ -18,8 +18,7 @@ nodegit.Repository.open("content")
 	})
 	.then(function(remoteResult) {
 		remote = remoteResult;
-
-  
+		
 		remote.setCallbacks({
 			certificateCheck: function() { return 1; },
 			credentials: function(url, userName) {
