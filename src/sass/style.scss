@@ -61,6 +61,7 @@ header {
 		border: 1px solid #777;
 		display: none;
 		background: inherit;
+		outline: none;
 		&.active {
 			display: block;
 		}
