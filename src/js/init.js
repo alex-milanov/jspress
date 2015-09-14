@@ -71,10 +71,10 @@ $(document).ready(function(){
 	});
 
 
-	$("header > button").click(function(){
+	$(".editor-toolbar > button").click(function(){
 		$(this).parent().find("button").removeClass("active");
 		$(this).addClass("active");
-		$(".editor-layout > *").removeClass("active");
+		$(".editor-layout > .editor").removeClass("active");
 		$($(this).attr("rel")).addClass("active");
 	});
 

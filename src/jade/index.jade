@@ -5,12 +5,20 @@ html
 		link(rel="stylesheet",href="css/style.css")
 	body
 		header
-			h1 JSPress - Retiring Wordpress ;-)
-			button#toggle-wysiwyg.active(rel="#wysiwyg-editor") WYSIWYG
-			button#toggle-markdown(rel="#markdown-editor") Markdown
+			a#toggle-menu.fa.fa-bars
+			h1 JSPress
+			h2#article-title(contenteditable="true") New Article
+			.article-menu
+				a.fa.fa-save
+				a.fa.fa-cog
+				a.fa.fa-plus
 		.editor-layout
-			div#wysiwyg-editor.active(contenteditable="true")
-			textarea#markdown-editor
+			div#wysiwyg-editor.editor.active(contenteditable="true")
+			textarea#markdown-editor.editor
+			.editor-toolbar
+				button#toggle-wysiwyg.active(rel="#wysiwyg-editor") WYSIWYG
+				button#toggle-markdown(rel="#markdown-editor") Markdown
+
 
 		//- libs
 		script(src="lib/jquery/dist/jquery.js")

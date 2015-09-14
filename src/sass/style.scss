@@ -1,4 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic-ext,cyrillic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&subset=latin,cyrillic);
+
+@import url(https://fonts.googleapis.com/css?family=Share:400,400italic,700,700italic);
 
 @import "inc/overrides.scss";
 @import "inc/vars.scss";
@@ -7,63 +9,99 @@
 
 header {
 	position: absolute;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	height: 35px;
+	top: 5px;
+	left: 20px;
+	right: 5px;
+	height: 30px;
 	background: #fff;
-	padding: 0px 10px;
-	h1 {
+	> *, a.fa {
+		height: 30px;
+		line-height: 30px;
 		margin: 0px;
 		padding: 0px;
+		display: inline-block;
+	}
+	h1 {
 		font-size: 24px;
-		display: inline-block;
-		height: 30px;
-		line-height: 30px;
+		font-family: $jspress-logo-font;
 	}
-	button {
-		border: 1px solid #777;
-		background: #ccc;
-		height: 30px;
-		line-height: 30px;
-		padding: 0px 10px;
-		font-size: 16px;
-		text-align: middle;
-		display: inline-block;
-		cursor: pointer;
-		&:hover {
-			background: #eee;
-		}
-		margin: 0px;
-		&.active {
-			background: #aaa;
+	#article-title {
+		font-size: 20px;
+		position: absolute;
+		top: 0px;
+		width: 600px;
+		text-align: center;
+		left: 50%;
+		margin-left: -320px;
+		outline: none;
+	}
+	.article-menu {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		> a.fa {
+			float: left;
+			display: block;
 		}
 	}
+	a.fa {
+    	font-size: 22px;
+    	padding: 0px 5px;
+    	cursor: pointer;
+    	&:hover {
+    		background: #ddd;
+    	}
+	}
+	
 }
 
 .editor-layout {
+	clear: both;
 	position: absolute;
-	top: 35px;
-	left: 0px;
-	right: 0px;
+	top: 45px;
+	left: 20px;
+	right: 5px;
 	bottom: 0px;
-	border-left: 15px solid #777;
-	> * {
-		padding: 20px;
+	> .editor {
+		padding: 10px;
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		position: absolute;
 		top: 0px;
 		left: 0px;
 		right: 0px;
 		bottom: 0px;
+		border: 0px;
 		box-sizing: border-box;
-		border: 1px solid #777;
 		display: none;
 		background: inherit;
 		outline: none;
 		&.active {
 			display: block;
+		}
+	}
+
+	.editor-toolbar {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		button {
+			border: 1px solid #777;
+			background: #ccc;
+			height: 20px;
+			line-height: 20px;
+			padding: 0px 5px;
+			font-size: 14px;
+			text-align: middle;
+			display: inline-block;
+			cursor: pointer;
+			&:hover {
+				background: #eee;
+			}
+			margin: 0px;
+			&.active {
+				background: #aaa;
+			}
 		}
 	}
 	/*
