@@ -1,9 +1,18 @@
 "use strict"
 
+var offsetValues = {
+	"H1": 2, 	// `# `
+	"H2": 3,	// `## `
+	"LI": 2,	// `- `
+	"P": 0
+}
+
 var saveSelection, restoreSelection;
 
 if (window.getSelection && document.createRange) {
 	saveSelection = function(containerEl) {
+		var sel = window.getSelection();
+		console.log(sel);
 		var range = window.getSelection().getRangeAt(0);
 		var preSelectionRange = range.cloneRange();
 		preSelectionRange.selectNodeContents(containerEl);
@@ -12,11 +21,14 @@ if (window.getSelection && document.createRange) {
 
 		return {
 			start: start,
-			end: start + range.toString().length
+			startNodeName: sel.baseNode.parentNode.nodeName,
+			end: start + range.toString().length,
+			endNodeName: sel.extentNode.parentNode.nodeName
 		};
 	};
 
 	restoreSelection = function(containerEl, savedSel) {
+
 		var charIndex = 0, range = document.createRange();
 		range.setStart(containerEl, 0);
 		range.collapse(true);
@@ -26,6 +38,7 @@ if (window.getSelection && document.createRange) {
 			if (node.nodeType == 3) {
 				var nextCharIndex = charIndex + node.length;
 				if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
+					
 					range.setStart(node, savedSel.start - charIndex);
 					foundStart = true;
 				}
@@ -45,6 +58,8 @@ if (window.getSelection && document.createRange) {
 		var sel = window.getSelection();
 		sel.removeAllRanges();
 		sel.addRange(range);
+
+
 	}
 } else if (document.selection) {
 	saveSelection = function(containerEl) {

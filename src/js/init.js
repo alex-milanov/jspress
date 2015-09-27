@@ -22,20 +22,26 @@ var toMarkdownOptions = {
 			}
 		}
 	]
-}
+};
+
+var markedOptions = {
+	gfm: true,
+	breaks: true
+};
 
 var typingTimer = false;                //timer identifier
 var doneTypingInterval = 500;  //time in ms, 5 second for example
 
 function doneTyping (el) {
 	var sel = saveSelection(el[0]);
+	console.log(sel);
 	
 	var html = el.html();
 	var md = toMarkdown(html, toMarkdownOptions);
 
 	$("#markdown-editor").val(md);
 	
-	el.html(marked(md))
+	el.html(marked(md, markedOptions))
 	
 	restoreSelection(el[0],sel);
 }
@@ -45,13 +51,12 @@ $(document).ready(function(){
 
 	function md2html(){
 		var md = $("#markdown-editor").val();
-		$("#wysiwyg-editor").html(marked(md));
+		$("#wysiwyg-editor").html(marked(md, markedOptions));
 	}
 
 	function html2md(){
 		var html = $("#wysiwyg-editor").html();
 		var md = toMarkdown(html, toMarkdownOptions);
-		console.log(md);
 		$("#markdown-editor").val(md);
 	}
 
