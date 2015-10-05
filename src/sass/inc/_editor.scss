@@ -1,0 +1,58 @@
+.editor-layout#editor {
+	clear: both;
+	position: absolute;
+	top: 45px;
+	left: 20px;
+	right: 5px;
+	bottom: 0px;
+	> .editor-area {
+		padding: 10px;
+		width: 100%;
+		min-height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		border: 0px;
+		box-sizing: border-box;
+		display: none;
+		background: inherit;
+		outline: none;
+		&.active {
+			display: block;
+		}
+	}
+
+	.editor-toolbar {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		button {
+			border: 1px solid #777;
+			background: #ccc;
+			height: 20px;
+			line-height: 20px;
+			padding: 0px 5px;
+			font-size: 14px;
+			text-align: middle;
+			display: inline-block;
+			cursor: pointer;
+			&:hover {
+				background: #eee;
+			}
+			margin: 0px;
+			&.active {
+				background: #aaa;
+			}
+		}
+	}
+	/*
+	#wysiwyg-editor {
+		left: 0px;
+	}
+	#markdown-editor {
+		right: 0px;
+	}
+	*/
+}

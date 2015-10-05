@@ -12,9 +12,9 @@ html
 				a.fa.fa-save
 				a.fa.fa-cog
 				a.fa.fa-plus
-		.editor-layout
-			div#wysiwyg-editor.editor.active(contenteditable="true")
-			textarea#markdown-editor.editor
+		.editor-layout#editor
+			div#wysiwyg-editor.editor-area.active(contenteditable="true")
+			textarea#markdown-editor.editor-area
 			.editor-toolbar
 				button#toggle-wysiwyg.active(rel="#wysiwyg-editor") WYSIWYG
 				button#toggle-markdown(rel="#markdown-editor") Markdown
@@ -25,8 +25,9 @@ html
 		script(src="lib/lodash/lodash.js")
 		script(src="lib/marked/lib/marked.js")
 		script(src="lib/to-markdown/dist/to-markdown.js")
-		script(src="lib/tinymce/tinymce.min.js")
+		script(src="lib/deep-diff/index.js")
 		//- app
 		script(src="js/selections.js")
+		script(src="js/jspress/editor.js")
 		script(src="js/init.js")
 	

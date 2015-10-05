@@ -12,7 +12,7 @@ var saveSelection, restoreSelection;
 if (window.getSelection && document.createRange) {
 	saveSelection = function(containerEl) {
 		var sel = window.getSelection();
-		console.log(sel);
+		//console.log(containerEl);
 		var range = window.getSelection().getRangeAt(0);
 		var preSelectionRange = range.cloneRange();
 		preSelectionRange.selectNodeContents(containerEl);

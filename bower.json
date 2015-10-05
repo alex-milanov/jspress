@@ -14,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
+    "deep-diff": "~0.3.2",
     "font-awesome": "~4.4.0",
     "jquery": "~2.1.4",
     "lodash": "~3.10.1",
@@ -22,19 +23,24 @@
     "to-markdown": "~1.2.1"
   },
   "overrides": {
-    "tinymce": {
-      "main": [ 
-        "*.js",
-        "plugins/**/*.*",
-        "themes/**/*.*",
-        "skins/**/*.*"
-
-      ]
-    },
+    // "tinymce": {
+    //   "main": [
+    //     "*.js",
+    //     "plugins/**/*.*",
+    //     "themes/**/*.*",
+    //     "skins/**/*.*"
+    //   ]
+    // },
     "font-awesome": {
       "main": [
         "css/**/*.css",
         "fonts/**/*"
+      ]
+    },
+    "deep-diff": {
+      "main": [
+        "index.js",
+        "releases/*.js"
       ]
     }
   }
