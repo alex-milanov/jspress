@@ -2,55 +2,56 @@
 
 @import url(https://fonts.googleapis.com/css?family=Share:400,400italic,700,700italic);
 
-@import "inc/overrides.scss";
-@import "inc/vars.scss";
-@import "inc/common.scss";
-@import "inc/editor.scss";
+
+$jspress-main-font: "Open Sans" Helvetica Arial sans-serif;
+$jspress-logo-font: "Open Sans" Helvetica Arial sans-serif;
+
+$jspress-bg-color: #ccc;
+$jspress-fg-color: #333;
+
+body {
+	font-family: $jspress-main-font;
+	color: $jspress-fg-color;
+	background: $jspress-bg-color;
+	margin: 0px;
+}
 
 header {
-	position: absolute;
-	top: 5px;
-	left: 20px;
-	right: 5px;
-	height: 30px;
-	background: #fff;
-	> *, a.fa {
-		height: 30px;
-		line-height: 30px;
+	height: 80px;
+	width: 960px;
+	margin: 20px auto;
+	#brand {
+		margin: 10px 40px 10px 0px;
+		display: inline-block;
+		font-size: 32px;
+	}
+	#menu {
 		margin: 0px;
 		padding: 0px;
 		display: inline-block;
-	}
-	h1 {
-		font-size: 24px;
-		font-family: $jspress-logo-font;
-	}
-	#article-title {
-		font-size: 20px;
-		position: absolute;
-		top: 0px;
-		width: 600px;
-		text-align: center;
-		left: 50%;
-		margin-left: -320px;
-		outline: none;
-	}
-	.article-menu {
-		position: absolute;
-		right: 0px;
-		top: 0px;
-		> a.fa {
-			float: left;
-			display: block;
+		li {
+			font-size: 16px;
+			margin: 42px 2px;
+			border: 1px solid #000;
+			height: 26px;
+			line-height: 26px;
+			padding: 0px 10px;
+			list-style-type: none;
+			display: inline-block;
+			a {
+				text-decoration: none;
+			}
 		}
 	}
-	a.fa {
-    	font-size: 22px;
-    	padding: 0px 5px;
-    	cursor: pointer;
-    	&:hover {
-    		background: #ddd;
-    	}
+}
+
+#content {
+	width: 960px;
+	margin: 0px auto;
+	table {
+		border: 1px solid #000;
+		th, td {
+			border: 1px solid #000;
+		}
 	}
-	
 }

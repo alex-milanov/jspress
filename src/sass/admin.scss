@@ -1,0 +1,55 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&subset=latin,cyrillic);
+
+@import url(https://fonts.googleapis.com/css?family=Share:400,400italic,700,700italic);
+
+@import "inc/vars.scss";
+@import "inc/common.scss";
+@import "inc/editor.scss";
+
+header {
+	position: absolute;
+	top: 5px;
+	left: 20px;
+	right: 5px;
+	height: 30px;
+	background: #fff;
+	> *, a.fa {
+		height: 30px;
+		line-height: 30px;
+		margin: 0px;
+		padding: 0px;
+		display: inline-block;
+	}
+	h1 {
+		font-size: 24px;
+		font-family: $jspress-logo-font;
+	}
+	#article-title {
+		font-size: 20px;
+		position: absolute;
+		top: 0px;
+		width: 600px;
+		text-align: center;
+		left: 50%;
+		margin-left: -320px;
+		outline: none;
+	}
+	.article-menu {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		> a.fa {
+			float: left;
+			display: block;
+		}
+	}
+	a.fa {
+    	font-size: 22px;
+    	padding: 0px 5px;
+    	cursor: pointer;
+    	&:hover {
+    		background: #ddd;
+    	}
+	}
+	
+}

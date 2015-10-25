@@ -1,0 +1,18 @@
+html
+	head
+		title Test Site
+		link(rel="stylesheet",href="/lib/font-awesome/css/font-awesome.css")
+		link(rel="stylesheet",href="/css/style.min.css")
+	body
+		header
+			h1#brand Test Site
+			ul#menu
+				li: a(href="/") Home
+				li: a(href="/news.html") News
+				li: a(href="/about.html") About
+		section#content
+			block content
+				!= content
+
+		script(src="/lib/jquery/dist/jquery.js")
+		script(src="/lib/lodash/lodash.js")

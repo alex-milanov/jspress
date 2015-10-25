@@ -162,6 +162,8 @@ jspress.Editor.prototype.processDiffMap = function(diffMap, selection){
 			case "A":
 				index = diffNode.index;
 				diffNode = diffNode.item;
+				if(diffNode.index)
+					index = diffNode.index;
 				kind = diffNode.kind;
 				break;
 		}
