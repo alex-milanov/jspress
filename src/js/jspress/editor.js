@@ -179,6 +179,14 @@ jspress.Editor.prototype.processDiffMap = function(diffMap, selection){
 	return changeMap;
 }
 
+jspress.Editor.prototype.getContent = function(){
+	return this._markdown.val();
+}
+
+jspress.Editor.prototype.setContent = function(value){
+	this._markdown.val(value);
+	this._wysiwyg.html(marked(value, this._options.marked));
+}
 
 jspress.Editor.prototype.process = function(){
 	var sel = this._getSelection(this._wysiwyg[0]);

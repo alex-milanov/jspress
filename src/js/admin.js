@@ -44,4 +44,40 @@ $(document).ready(function(){
 		$toggleRef.toggleClass(_toggleClass);
 	});
 	
+
+	var $fileList = $("#file-list");
+
+	$.get("/api/content")
+		.then(function(files){
+			$fileList.html("")
+			files.forEach(function(fileName){
+				var $fileNode = $("<li><a>"+fileName+"</a></li>");
+				$fileNode.click(function(){
+					openFile(fileName);
+				})
+				$fileList.append($fileNode);
+			})
+		})
+
+	var openFile = function(filePath){
+		$.get("/api/content/"+filePath)
+			.then(function(fileContent){
+				editor.setContent(fileContent);
+				$("#article-title").text(filePath);
+			})
+	}
+
+	var saveFile = function(filePath){
+		var content = editor.getContent();
+		$.ajax({
+			url: "/api/content/"+filePath, 
+			data: {content:content},
+			method: "PUT"
+		});
+	}
+
+	$("#file-save").click(function(){
+		var filePath = $("#article-title").text();
+		saveFile(filePath);
+	})
 })

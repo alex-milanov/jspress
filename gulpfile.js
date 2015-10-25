@@ -97,22 +97,24 @@ gulp.task('js', function(done) {
 });
 
 
-/*gulp.task('nodemon', function () {
+gulp.task('server', function () {
 	nodemon({
-		script: 'index.js',
+		script: 'server/index.js',
+		watch: 'server/*',
 		ext: 'js json',
-		ignore: ["src/*","www/*","mobile/*"],
+		ignore: ['src/*','dist/*','node_modules/*'],
 		env: { 'NODE_ENV': 'development' }
 	})
-})*/
-gulp.task('express', function() {
+})
+
+/*gulp.task('express', function() {
 	app.use(express.static(path.resolve('./dist')));
 	app.use(require('connect-livereload')({
 		port: 35729
 	}));
 	app.listen(8080);
 	gutil.log('Listening on port: 8080');
-});
+});*/
 
 gulp.task('livereload', function(){
 	livereload.listen({ basePath: './dist' });
@@ -127,6 +129,6 @@ gulp.task('watch', function() {
 
 gulp.task('build', ['sass','jade','content','js','bower-files']);
 
-gulp.task('serve', ['express','livereload','watch']);
+gulp.task('serve', ['server','livereload','watch']);
 
 gulp.task('default',['build','serve']);

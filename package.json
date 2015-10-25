@@ -32,8 +32,11 @@
     "tiny-lr": "^0.1.6"
   },
   "dependencies": {
-    "fs-extra": "^0.24.0",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "fs-extra": "^0.25.0",
     "lodash": "^3.10.1",
+    "method-override": "^2.3.5",
     "nodegit": "^0.4.1",
     "nodegit-promise": "^3.0.2",
     "promisify-node": "^0.2.1",
