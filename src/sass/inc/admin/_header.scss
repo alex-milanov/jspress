@@ -1,0 +1,42 @@
+header {
+	background: #fff;
+	> *, a.fa {
+		height: 30px;
+		line-height: 30px;
+		margin: 0px;
+		padding: 0px;
+		display: inline-block;
+	}
+	h1 {
+		font-size: 24px;
+		font-family: $jspress-logo-font;
+	}
+	#article-title {
+		font-size: 20px;
+		position: absolute;
+		top: 0px;
+		width: 600px;
+		text-align: center;
+		left: 50%;
+		margin-left: -320px;
+		outline: none;
+	}
+	.article-menu {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		> a.fa {
+			float: left;
+			display: block;
+		}
+	}
+	a.fa {
+		font-size: 22px;
+		padding: 0px 5px;
+		cursor: pointer;
+		&:hover {
+			background: #ddd;
+		}
+	}
+	
+}

@@ -35,5 +35,13 @@ var editor = new jspress.Editor("#editor",options);
 $(document).ready(function(){
 
 	editor.init();
+
+	$("body").on("click","a[class*='-toggle']",function(){
+		$(this).toggleClass("toggled");
+		var $toggleRef = $($(this).data("toggle-ref"));
+		var _toggleClass = $(this).data("toggle-class");
+		var _toggleParam = $(this).data("toggle-param");
+		$toggleRef.toggleClass(_toggleClass);
+	});
 	
 })

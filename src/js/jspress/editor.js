@@ -243,7 +243,7 @@ jspress.Editor.prototype.init = function(){
 	$(editor._dom).on("click",".editor-toolbar > button",function(){
 		$(this).parent().find("button").removeClass("active");
 		$(this).addClass("active");
-		$(".editor-layout > .editor-area").removeClass("active");
+		$(editor._dom).find(".editor-area").removeClass("active");
 		$($(this).attr("rel")).addClass("active");
 	});
 

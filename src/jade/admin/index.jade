@@ -4,20 +4,28 @@ html
 		link(rel="stylesheet",href="/lib/font-awesome/css/font-awesome.css")
 		link(rel="stylesheet",href="/css/admin.css")
 	body
-		header
-			a#toggle-menu.fa.fa-bars
-			h1 JSPress
-			h2#article-title(contenteditable="true") New Article
-			.article-menu
-				a.fa.fa-save
-				a.fa.fa-cog
-				a.fa.fa-plus
-		.editor-layout#editor
-			div#wysiwyg-editor.editor-area.active(contenteditable="true")
-			textarea#markdown-editor.editor-area
-			.editor-toolbar
-				button#toggle-wysiwyg.active(rel="#wysiwyg-editor") WYSIWYG
-				button#toggle-markdown(rel="#markdown-editor") Markdown
+		.layout
+			.side-panel
+				h3 File List
+				ul#file-list
+					li: a README.md
+					li: a index.md
+					li: a about.md
+					li: a news.md
+			header
+				a.jspress-panel-toggle.fa.fa-bars(data-toggle-ref=".side-panel",data-toggle-class="opened")
+				h1 JSPress
+				h2#article-title(contenteditable="true") New Article
+				.article-menu
+					a.fa.fa-save
+					a.fa.fa-cog
+					a.fa.fa-plus
+			.editor#editor
+				div#wysiwyg-editor.editor-area.active(contenteditable="true")
+				textarea#markdown-editor.editor-area
+				.editor-toolbar
+					button#toggle-wysiwyg.active(rel="#wysiwyg-editor") WYSIWYG
+					button#toggle-markdown(rel="#markdown-editor") Markdown
 
 
 		//- libs
@@ -27,7 +35,6 @@ html
 		script(src="/lib/to-markdown/dist/to-markdown.js")
 		script(src="/lib/deep-diff/index.js")
 		//- app
-		script(src="/js/selections.js")
 		script(src="/js/jspress/editor.js")
-		script(src="/js/init.js")
+		script(src="/js/admin.js")
 	

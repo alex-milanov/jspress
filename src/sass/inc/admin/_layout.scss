@@ -1,0 +1,39 @@
+.layout {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	> * {
+		left: 20px;
+		right: 5px;
+		position: absolute;
+		-moz-transition: .3s ease all;
+		-webkit-transition: .3s ease all;
+		transition: .3s ease all;
+	}
+	.side-panel {
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		margin-left: $jspress-panel-nav-size - $jspress-panel-width;
+		width: $jspress-panel-width;
+		background: #777;
+		&.opened {
+			margin-left: 0px;
+			& + header, & + header + .editor {
+				left: $jspress-panel-width + 5px;
+			}
+		}
+	}
+	header {
+		top: 5px;
+		height: 30px;
+	}
+	.editor {
+		top: 40px;
+		bottom: 5px;
+	}
+}

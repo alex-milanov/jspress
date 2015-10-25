@@ -1,0 +1,36 @@
+.side-panel {
+	padding: 10px $jspress-panel-nav-size 10px 5px;
+	box-sizing: border-box;
+	h3 {
+		margin: 0px;
+		padding: 0px 5px;
+		font-size: 18px;
+		background: #ccc;
+		color: #333;
+	}
+
+	ul#file-list {
+		margin: 10px 0px;
+		list-style-type: none;
+		padding: 0px;
+		background: #ccc;
+		color: #333;
+		li {
+			margin: 0px;
+			height: 20px;
+			font-size: 14px;
+			a {
+				box-sizing: border-box;
+				padding: 0px 5px;
+				text-decoration: none;
+				height: 20px;
+				line-height: 20px;
+				display: block;
+				cursor: pointer;
+				&:hover {
+					background: #aaa;
+				}
+			}
+		}
+	}
+}
