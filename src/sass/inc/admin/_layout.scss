@@ -18,6 +18,8 @@
 		top: 0px;
 		left: 0px;
 		bottom: 0px;
+		padding: 10px $jspress-panel-nav-size 10px 6px;
+		box-sizing: border-box;
 		margin-left: $jspress-panel-nav-size - $jspress-panel-width;
 		width: $jspress-panel-width;
 		background: #777;

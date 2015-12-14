@@ -9,24 +9,49 @@ jspress.Editor = function(dom, options){
 	this._options = options;
 
 	this._nodeMap = [];
+	this._selection = {
+		start: [],
+		end: []
+	};
 
 	this._generateNodeMap = function(){
 		var editor = this;
 		editor._nodeMap = [];
-		Array.prototype.forEach.call(editor._wysiwyg[0].childNodes, function(node, index){ 
+		editor._selection = {
+			start: [],
+			end: []
+		};
+		var sel = window.getSelection();
+		console.log(sel);
+		var verticalOffset = 0;
+		var totalOffset = 0;
+		Array.prototype.forEach.call(editor._wysiwyg[0].childNodes, function(node, index){
+			if(sel.anchorNode == node || sel.anchorNode.parentNode == node){
+				editor._selection.start = [index, sel.anchorOffset]
+			}
+			if(sel.extentNode == node || sel.extentNode.parentNode == node){
+				editor._selection.end = [index, sel.extentOffset]
+			}
 			if(node.nodeType == 3 && node.textContent == "\n"){
-
+				totalOffset+=1;
 			} else {
-				editor._nodeMap.push({
-					index: index,
-					type: node.nodeType,
-					name: node.nodeName,
-					content: node.textContent
-				})
+				if(node.textContent === ""){
+					verticalOffset++;
+				} else {
+					totalOffset+=verticalOffset;
+					editor._nodeMap.push({
+						index: index-totalOffset,
+						type: node.nodeType,
+						name: node.nodeName,
+						content: node.textContent,
+						verticalOffset: verticalOffset
+					})
+					
+					verticalOffset = 0;
+				}
 			}
 		})
 	}
-
 
 	this._getNodePath = function(parent, child){
 		if(!parent.contains(child))
@@ -101,10 +126,12 @@ jspress.Editor = function(dom, options){
 		range.setStart(containerEl, 0);
 		range.collapse(true);
 
+		var operations = [];
+
 		for(var index in changeMap){
 			var change = changeMap[index];
 			switch(change.kind){
-				case "D":
+				/*case "D":
 					console.log(change, index);
 					var newNode = document.createElement(change.lhs.name);
 					newNode.appendChild(document.createElement("br"));
@@ -113,34 +140,56 @@ jspress.Editor = function(dom, options){
 					} else {
 						containerEl.appendChild(newNode);
 					}
-					break;
+					break;*/
 				case "E":
-					if(savedSel.startNodePath[0] == index 
-						|| ( savedSel.startNodePath[0] == index+1 && containerEl.childNodes[index].nodeType == 3 )){
+					console.log(change, index);
+					var changedNode = (index == 0) ? containerEl.childNodes[0] : containerEl.childNodes[index*2];
+						
+					if(change.changes.verticalOffset && change.changes.verticalOffset.lhs > change.changes.verticalOffset.rhs){
+						var verticalOffset = change.changes.verticalOffset.lhs - change.changes.verticalOffset.rhs;
+						operations.push({
+							type: "verticalOffset",
+							verticalOffset: verticalOffset,
+							node: changedNode
+						})
+					}
+					if(savedSel.start[0] == index 
+						//|| ( savedSel.start[0] == index+1 && changedNode.nodeType == 3 )
+						){
 						if(change.changes.name){
 							if(["H1","H2","H3","H4","LI"].indexOf(change.changes.name.rhs) > -1){
-								console.log("changed",change.changes.content.rhs.length)
-								savedSel.startNodeOffset = change.changes.content.rhs.length;
+								//console.log("changed",change.changes.content.rhs.length)
+								savedSel.start[1] = change.changes.content.rhs.length;
 							}
 						}
 					}
-					if(savedSel.endNodePath[0] == index
-						|| ( savedSel.endNodePath[0] == index+1 && containerEl.childNodes[index].nodeType == 3 )){
+					if(savedSel.end[0] == index
+						//|| ( savedSel.end[0] == index+1 && changedNode.nodeType == 3 )
+						){
 						if(change.changes.name){
 							if(["H1","H2","H3","H4","LI"].indexOf(change.changes.name.rhs) > -1){
-								savedSel.endNodeOffset = change.changes.content.rhs.length;
+								savedSel.end[1] = change.changes.content.rhs.length;
 							}
 						}
 					}
 					break;
 			}
 		}
-		console.log(changeMap, savedSel);
-		
-		range.setStart(this._nodeByPath(containerEl,savedSel.startNodePath),savedSel.startNodeOffset);
-		range.setEnd(this._nodeByPath(containerEl,savedSel.endNodePath),savedSel.endNodeOffset);
-		
 
+		operations.forEach(function(operation){
+			switch(operation.type){
+				case "verticalOffset": 
+					for(var i = 0; i < operation.verticalOffset; i++){
+						containerEl.insertBefore(document.createElement("br"), operation.node);
+					}
+					break;
+			}
+		})
+
+		console.log(savedSel, containerEl.childNodes);
+		range.setStart(containerEl.childNodes[savedSel.start[0]*2].firstChild,savedSel.start[1]);
+		range.setEnd(containerEl.childNodes[savedSel.end[0]*2].firstChild,savedSel.end[1]);
+		
 		var sel = window.getSelection();
 		sel.removeAllRanges();
 		sel.addRange(range);
@@ -189,9 +238,12 @@ jspress.Editor.prototype.setContent = function(value){
 }
 
 jspress.Editor.prototype.process = function(){
-	var sel = this._getSelection(this._wysiwyg[0]);
 	
+	//this._getSelection(this._wysiwyg[0]);
 	this._generateNodeMap();
+
+	var sel = _.clone(this._selection);//this._getSelection(this._wysiwyg[0]);
+
 	var oldMap = _.clone(this._nodeMap);
 
 	var html = this._wysiwyg.html();
@@ -205,7 +257,7 @@ jspress.Editor.prototype.process = function(){
 	var newMap = _.clone(this._nodeMap);
 
 	var diffMap = DeepDiff.diff(oldMap,newMap);
-	//console.log(diffMap,oldMap,newMap);
+	console.log(diffMap,oldMap,newMap);
 	var changeMap = this.processDiffMap(diffMap);
 
 	this._setSelection(changeMap,sel);
