@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content
+	url = git@github.com:alex-milanov/jspress-md-content.git

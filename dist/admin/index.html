@@ -1,0 +1,41 @@
+
+<html>
+  <head>
+    <title>JSPress - Retiring Wordpress ;-)</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/css/admin.css"/>
+  </head>
+  <body>
+    <div class="layout">
+      <div class="side-panel">
+        <h3>File List</h3>
+        <ul id="file-list">
+          <li><a>README.md</a></li>
+          <li><a>index.md</a></li>
+          <li><a>about.md</a></li>
+          <li><a>news.md</a></li>
+        </ul>
+      </div>
+      <header><a data-toggle-ref=".side-panel" data-toggle-class="opened" class="jspress-panel-toggle fa fa-bars"></a>
+        <h1>JSPress</h1>
+        <h2 id="article-title" contenteditable="true">New Article</h2>
+        <div class="article-menu"><a id="file-save" class="fa fa-save"></a><a class="fa fa-cog"></a><a id="file-new" class="fa fa-plus"></a></div>
+      </header>
+      <div id="editor" class="editor">
+        <div id="wysiwyg-editor" contenteditable="true" class="editor-area active"></div>
+        <textarea id="markdown-editor" class="editor-area"></textarea>
+        <div class="editor-toolbar">
+          <button id="toggle-wysiwyg" rel="#wysiwyg-editor" class="active">WYSIWYG</button>
+          <button id="toggle-markdown" rel="#markdown-editor">Markdown</button>
+        </div>
+      </div>
+    </div>
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/lodash/lodash.js"></script>
+    <script src="/lib/marked/lib/marked.js"></script>
+    <script src="/lib/to-markdown/dist/to-markdown.js"></script>
+    <script src="/lib/deep-diff/index.js"></script>
+    <script src="/js/jspress/editor.js"></script>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

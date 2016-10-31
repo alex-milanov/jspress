@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&subset=latin,cyrillic)
+
+@import url(https://fonts.googleapis.com/css?family=Share:400,400italic,700,700italic)
+
+@import 'font-awesome'
+@import 'bourbon'
+@import 'neat'
+
+$jspress-main-font: 'Open Sans', Helvetica, Arial, sans-serif
+$jspress-logo-font: 'Open Sans', Helvetica, Arial, sans-serif
+
+$jspress-bg-color: #ccc
+$jspress-fg-color: #333
+
+body
+	font-family: $jspress-main-font
+	color: $jspress-fg-color
+	background: $jspress-bg-color
+	margin: 0px
+
+header
+	height: 80px
+	width: 960px
+	margin: 20px auto
+	#brand
+		margin: 10px 40px 10px 0px
+		display: inline-block
+		font-size: 32px
+	#menu
+		margin: 0px
+		padding: 0px
+		display: inline-block
+		li
+			font-size: 16px
+			margin: 42px 2px
+			border: 1px solid #000
+			height: 26px
+			line-height: 26px
+			padding: 0px 10px
+			list-style-type: none
+			display: inline-block
+			a
+				text-decoration: none
+
+#content
+	width: 960px
+	margin: 0px auto
+	table
+		border: 1px solid #000
+		th, td
+			border: 1px solid #000

@@ -4,3 +4,7 @@ body {
 	background: $jspress-bg-color;
 	margin: 0px;
 }
+
+input, textarea, button {
+	color: $jspress-fg-color
+}

@@ -1,4 +1,4 @@
-.editor#editor {
+.editor {
 	> .editor-area {
 		padding: 10px;
 		width: 100%;
@@ -24,6 +24,7 @@
 		right: 0px;
 		button {
 			border: 1px solid #777;
+			color: #333;
 			background: #ccc;
 			height: 20px;
 			line-height: 20px;

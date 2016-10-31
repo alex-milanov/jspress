@@ -11,7 +11,7 @@ header {
 		font-size: 24px;
 		font-family: $jspress-logo-font;
 	}
-	#article-title {
+	.article-title {
 		font-size: 20px;
 		position: absolute;
 		top: 0px;
@@ -38,5 +38,5 @@ header {
 			background: #ddd;
 		}
 	}
-	
+
 }

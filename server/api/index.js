@@ -1,5 +1,5 @@
 "use strict";
 
 module.exports = function(server){
-	require("./content")(server);
+	// require("./content")(server);
 }
