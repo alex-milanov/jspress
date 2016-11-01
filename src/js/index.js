@@ -11,8 +11,6 @@ const vdom = require('./util/vdom');
 let actions = require('./actions');
 const ui = require('./ui');
 
-console.log(actions);
-
 // services
 // const router = require('./services/router');
 // actions = router.attach(actions);

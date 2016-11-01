@@ -1,5 +1,8 @@
 'use strict';
 
+const toMarkdown = require('to-markdown');
+const marked = require('marked');
+
 const options = {
 	toMarkdown: {
 		converters: [
@@ -25,4 +28,14 @@ const options = {
 		gfm: true,
 		breaks: true
 	}
+};
+
+const toHTML = md => marked(md, options.marked);
+
+const fromHTML = html => toMarkdown(html, options.toMarkdown);
+
+module.exports = {
+	options,
+	toHTML,
+	fromHTML
 };

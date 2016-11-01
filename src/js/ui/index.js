@@ -5,7 +5,8 @@ const {
 	table, thead, tbody, tr, td, th, form, input, button, label
 } = require('../util/vdom');
 
-const marked = require('marked');
+const md = require('../util/md');
+const sel = require('../util/sel');
 
 module.exports = ({state, actions}) => section('#ui', [
 	section('.side-panel', {
@@ -36,8 +37,14 @@ module.exports = ({state, actions}) => section('#ui', [
 		// wysiwig
 		div('.editor-area[contenteditable="true"]', {
 			class: {active: state.wizyIsActive},
-			props: {innerHTML: marked(state.content.body)},
-			on: {input: ev => actions.fromHTML(ev.target.innerHTML)}
+			props: {innerHTML: md.toHTML(state.content.body)},
+			on: {
+				input: ev => actions.wizyInput({
+					html: ev.target.innerHTML,
+					sel: sel.get(ev.target)
+				})
+			},
+			hook: {postpatch: vnode => sel.set(vnode.elm, state.content.sel)}
 		}),
 		// markdown
 		textarea('.editor-area', {

@@ -16866,19 +16866,23 @@ const Rx = require('rx');
 const $ = Rx.Observable;
 const {Subject} = Rx;
 
-const toMarkdown = require('to-markdown');
+const md = require('../util/md');
 
 const request = require('../util/request');
 
 const stream = new Subject();
+const wizySubject = new Subject();
 
 const init = () => stream.onNext(state => state);
 
-const fromHTML = html => stream.onNext(
+const wizyInput = ({html, sel}) => wizySubject.onNext({html, sel});
+
+const wizy$ = wizySubject.debounce(1000).map(({html, sel}) =>
 	state => Object.assign({}, state, {content: Object.assign(
-		{}, state.content, {body: toMarkdown(html)}
+		{}, state.content, {body: md.fromHTML(html), sel}
 	)})
 );
+
 const fromMD = body => stream.onNext(
 	state => Object.assign({}, state, {content: Object.assign(
 		{}, state.content, {body}
@@ -16896,7 +16900,8 @@ const toggleWizzy = wizyIsActive => stream.onNext(
 const initial = {
 	content: {
 		title: 'New Article',
-		body: '# Hello World!\n\n- I mean it'
+		body: '# Hello World!\n\n- I mean it',
+		sel: {start: 0, end: 0}
 	},
 	wizyIsActive: true,
 	sidePanelOpened: false
@@ -16904,15 +16909,15 @@ const initial = {
 
 module.exports = {
 	init,
-	fromHTML,
+	wizyInput,
 	fromMD,
 	toggleSidePanel,
 	toggleWizzy,
 	initial,
-	stream
+	stream: $.merge(stream, wizy$)
 };
 
-},{"../util/request":30,"rx":7,"to-markdown":22}],28:[function(require,module,exports){
+},{"../util/md":30,"../util/request":31,"rx":7}],28:[function(require,module,exports){
 'use strict';
 
 // lib
@@ -16925,8 +16930,6 @@ const vdom = require('./util/vdom');
 // app
 let actions = require('./actions');
 const ui = require('./ui');
-
-console.log(actions);
 
 // services
 // const router = require('./services/router');
@@ -16946,7 +16949,7 @@ vdom.patchStream(ui$, '#ui');
 
 window.actions = actions;
 
-},{"./actions":27,"./ui":29,"./util/vdom":31,"rx":7}],29:[function(require,module,exports){
+},{"./actions":27,"./ui":29,"./util/vdom":33,"rx":7}],29:[function(require,module,exports){
 'use strict';
 
 const {
@@ -16954,7 +16957,8 @@ const {
 	table, thead, tbody, tr, td, th, form, input, button, label
 } = require('../util/vdom');
 
-const marked = require('marked');
+const md = require('../util/md');
+const sel = require('../util/sel');
 
 module.exports = ({state, actions}) => section('#ui', [
 	section('.side-panel', {
@@ -16985,8 +16989,14 @@ module.exports = ({state, actions}) => section('#ui', [
 		// wysiwig
 		div('.editor-area[contenteditable="true"]', {
 			class: {active: state.wizyIsActive},
-			props: {innerHTML: marked(state.content.body)},
-			on: {input: ev => actions.fromHTML(ev.target.innerHTML)}
+			props: {innerHTML: md.toHTML(state.content.body)},
+			on: {
+				input: ev => actions.wizyInput({
+					html: ev.target.innerHTML,
+					sel: sel.get(ev.target)
+				})
+			},
+			hook: {postpatch: vnode => sel.set(vnode.elm, state.content.sel)}
 		}),
 		// markdown
 		textarea('.editor-area', {
@@ -17001,7 +17011,50 @@ module.exports = ({state, actions}) => section('#ui', [
 	])
 ]);
 
-},{"../util/vdom":31,"marked":5}],30:[function(require,module,exports){
+},{"../util/md":30,"../util/sel":32,"../util/vdom":33}],30:[function(require,module,exports){
+'use strict';
+
+const toMarkdown = require('to-markdown');
+const marked = require('marked');
+
+const options = {
+	toMarkdown: {
+		converters: [
+			{
+				filter: 'li',
+				replacement: (content, node) => {
+					content = content.replace(/^\s+/, '').replace(/\n/gm, '\n ');
+					let prefix = '- ';
+					const parent = node.parentNode;
+					const index = Array.prototype.indexOf.call(parent.children, node) + 1;
+
+					prefix = /ol/i.test(parent.nodeName) ? index + '. ' : '- ';
+					return prefix + content;
+				}
+			},
+			{
+				filter: 'div',
+				replacement: (content, node) => `\n\n${content}`
+			}
+		]
+	},
+	marked: {
+		gfm: true,
+		breaks: true
+	}
+};
+
+const toHTML = md => marked(md, options.marked);
+
+const fromHTML = html => toMarkdown(html, options.toMarkdown);
+
+module.exports = {
+	options,
+	toHTML,
+	fromHTML
+};
+
+},{"marked":5,"to-markdown":22}],31:[function(require,module,exports){
 'use strict';
 
 const Rx = require('rx');
@@ -17014,7 +17067,64 @@ superagent.Request.prototype.observe = function() {
 
 module.exports = superagent;
 
-},{"rx":7,"superagent":18}],31:[function(require,module,exports){
+},{"rx":7,"superagent":18}],32:[function(require,module,exports){
+'use strict';
+
+const get = el => {
+	var range = window.getSelection().getRangeAt(0);
+	var preSelectionRange = range.cloneRange();
+	preSelectionRange.selectNodeContents(el);
+	preSelectionRange.setEnd(range.startContainer, range.startOffset);
+	var start = preSelectionRange.toString().length;
+
+	return {
+		start: start,
+		end: start + range.toString().length
+	};
+};
+
+const set = (el, sel) => {
+	console.log(el, sel);
+	var charIndex = 0;
+	var range = document.createRange();
+	range.setStart(el, 0);
+	range.collapse(true);
+	var nodeStack = [el];
+	var node;
+	var foundStart = false;
+	var stop = false;
+
+	while (!stop && (node = nodeStack.pop())) {
+		if (node.nodeType === 3) {
+			var nextCharIndex = charIndex + node.length;
+			if (!foundStart && sel.start >= charIndex && sel.start <= nextCharIndex) {
+				range.setStart(node, sel.start - charIndex);
+				foundStart = true;
+			}
+			if (foundStart && sel.end >= charIndex && sel.end <= nextCharIndex) {
+				range.setEnd(node, sel.end - charIndex);
+				stop = true;
+			}
+			charIndex = nextCharIndex;
+		} else {
+			var i = node.childNodes.length;
+			while (i--) {
+				nodeStack.push(node.childNodes[i]);
+			}
+		}
+	}
+
+	var tSel = window.getSelection();
+	tSel.removeAllRanges();
+	tSel.addRange(range);
+};
+
+module.exports = {
+	get,
+	set
+};
+
+},{}],33:[function(require,module,exports){
 'use strict';
 
 const snabbdom = require('snabbdom');

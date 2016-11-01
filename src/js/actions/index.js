@@ -4,19 +4,23 @@ const Rx = require('rx');
 const $ = Rx.Observable;
 const {Subject} = Rx;
 
-const toMarkdown = require('to-markdown');
+const md = require('../util/md');
 
 const request = require('../util/request');
 
 const stream = new Subject();
+const wizySubject = new Subject();
 
 const init = () => stream.onNext(state => state);
 
-const fromHTML = html => stream.onNext(
+const wizyInput = ({html, sel}) => wizySubject.onNext({html, sel});
+
+const wizy$ = wizySubject.debounce(1000).map(({html, sel}) =>
 	state => Object.assign({}, state, {content: Object.assign(
-		{}, state.content, {body: toMarkdown(html)}
+		{}, state.content, {body: md.fromHTML(html), sel}
 	)})
 );
+
 const fromMD = body => stream.onNext(
 	state => Object.assign({}, state, {content: Object.assign(
 		{}, state.content, {body}
@@ -34,7 +38,8 @@ const toggleWizzy = wizyIsActive => stream.onNext(
 const initial = {
 	content: {
 		title: 'New Article',
-		body: '# Hello World!\n\n- I mean it'
+		body: '# Hello World!\n\n- I mean it',
+		sel: {start: 0, end: 0}
 	},
 	wizyIsActive: true,
 	sidePanelOpened: false
@@ -42,10 +47,10 @@ const initial = {
 
 module.exports = {
 	init,
-	fromHTML,
+	wizyInput,
 	fromMD,
 	toggleSidePanel,
 	toggleWizzy,
 	initial,
-	stream
+	stream: $.merge(stream, wizy$)
 };
