@@ -15,7 +15,7 @@ const init = () => stream.onNext(state => state);
 
 const wizyInput = ({html, sel}) => wizySubject.onNext({html, sel});
 
-const wizy$ = wizySubject.debounce(1000).map(({html, sel}) =>
+const wizy$ = wizySubject.debounce(500).map(({html, sel}) =>
 	state => Object.assign({}, state, {content: Object.assign(
 		{}, state.content, {body: md.fromHTML(html), sel}
 	)})
